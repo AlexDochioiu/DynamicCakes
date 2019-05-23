@@ -8,6 +8,7 @@ import com.github.alexdochioiu.core.di.CoreComponent
 import com.github.alexdochioiu.core.di.DaggerCoreComponent
 import com.github.alexdochioiu.core.navigation.DynamicFeature
 import com.github.alexdochioiu.core.navigation.DynamicNavigationManager
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -22,6 +23,12 @@ class CoreApplication : Application() {
         super.onCreate()
 
         appComponent.inject(this)
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        } else {
+            // todo I guess a custom tree can go here and the non-fatal errors can be reported to some bugs/errors tracker
+        }
     }
 
     private val appComponent: CoreComponent by lazy {

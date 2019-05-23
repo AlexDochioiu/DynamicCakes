@@ -21,5 +21,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':app')
 
+    // this module is required so I can expose data access objects all the
+    // way down to the ui module without exposing stuff from the networking/persistence layer to the ui layer
+    api project (':main_feature_common_objects')
+
     implementation networkingDependencies.retrofit2.rxjava2_call_adapter
 }

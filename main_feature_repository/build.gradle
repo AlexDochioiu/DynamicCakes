@@ -23,6 +23,11 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':app')
 
-    implementation project(':main_feature_networking')
-    // todo Create a persistence module as well if needed and add it here
+    // todo This should be changed to implementation but in order to do so a new module should be created
+    // todo          (the dagger component should be exposed down to ui level)
+    // todo if you are curious about what I mean, feel free to ask in the interview!!
+    api project(':main_feature_networking')
+
+    // todo Create a persistence module as well if needed and add it here; If persistence is not needed,
+    // todo           probably networking and repository layers should be merged into a single one
 }
