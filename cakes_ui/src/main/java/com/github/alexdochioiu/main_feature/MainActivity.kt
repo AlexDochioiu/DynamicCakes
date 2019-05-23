@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var mainViewModelFactory: MainViewModelFactory
 
-    private lateinit var disposables: CompositeDisposable //todo this should probably go into some BaseActivity class
+    private lateinit var disposables: CompositeDisposable //todo this should probably go into some BaseActivity class (part of app module)
     private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +32,14 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel = ViewModelProviders.of(this, mainViewModelFactory).get(MainViewModel::class.java)
 
-        disposables.add(mainViewModel.getCakes().subscribe(Consumer { Timber.d(it.toString()) }))
+        disposables.add(mainViewModel.getCakesObservable().subscribe { Timber.d(it.toString()) } )
+        mainViewModel.updateCakes()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        disposables.dispose()
     }
 
     private val featureComponent: FeatureComponent by lazy {
@@ -50,12 +57,6 @@ class MainActivity : AppCompatActivity() {
             .builder()
             .cakesRepositoryComponent(cakesRepositoryComponent)
             .build()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        disposables.dispose()
     }
 
     companion object {
