@@ -1,0 +1,12 @@
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
+dependencies {
+
+    implementation core.navigation_ktx.fragment
+    implementation core.navigation_ktx.ui
+
+    implementation ui.ktx.fragment
+    implementation ui.ktx.lifecycle
+    implementation ui.material
+    implementation ui.constraint_layout
+}

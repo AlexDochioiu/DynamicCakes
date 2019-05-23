@@ -1,0 +1,11 @@
+dependencies {
+    api core.kotlin.jdk
+    api core.kotlin.ktx
+    api core.rxjava2
+    api core.support.appcompat
+
+    api loggingDependency.timber
+
+    implementation core.navigation_ktx.fragment
+    implementation core.navigation_ktx.ui
+}

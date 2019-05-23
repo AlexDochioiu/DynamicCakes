@@ -1,0 +1,2 @@
+include ':app', ':main_feature', ':main_feature_networking', ':main_feature_repository'
+rootProject.name='dynamic'

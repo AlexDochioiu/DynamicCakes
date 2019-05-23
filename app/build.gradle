@@ -1,0 +1,41 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+apply from: '../compile_options.gradle'
+apply from: '../dagger.gradle'
+apply from: '../dependencies_core.gradle'
+apply from: '../dependencies_ui.gradle'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.github.alexdochioiu.core"
+        minSdkVersion 24
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+    dynamicFeatures = [":main_feature", ":main_feature_networking", ":main_feature_repository"]
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation networkingDependencies.okhttp3
+    implementation networkingDependencies.retrofit2.retrofit
+    implementation networkingDependencies.retrofit2.moshi_converter_adapter
+
+    implementation loggingDependency.okhttp3_interceptor
+
+    testImplementation testing.junit
+}

@@ -1,0 +1,92 @@
+ext {
+    versions = [
+            gradle_version = '3.5.0-beta02',
+            kotlin_version = '1.3.31',
+            navigation_version = '2.1.0-alpha03', //gradle plugin
+
+            constraint_layout = '2.0.0-beta1',
+
+            retrofit = '2.5.0',
+
+            glide = '4.9.0',
+            okhttp = '3.14.0',
+            moshi = '1.8.0',
+            dagger = '2.22.1',
+
+            timber = '4.3.1',
+            okhttp_logging_interceptor = '3.11.0',
+
+            material = '1.1.0-alpha06',
+            navigation = '2.1.0-alpha01',
+            recyclerview = '1.1.0-alpha03',
+            cardview = '1.0.0',
+            circleimageview = '3.0.0',
+
+            appcompat = '1.1.0-alpha05',
+            lifecycle_extension = '2.1.0-alpha04',
+
+            rxjava2 = '2.2.8',
+
+            //ktx
+            core_ktx = '1.2.0-alpha01',
+            fragment_ktx = '1.1.0-alpha05',
+            lifecycle_ktx = '2.2.0-alpha01',
+            navigation_ktx = '2.1.0-alpha03',
+
+            //test
+            junit = '4.12',
+            espresso = '3.1.1'
+    ]
+
+    // dependencies
+    networkingDependencies = [
+            glide       : "com.github.bumptech.glide:glide:$glide",
+            okhttp3     : "com.squareup.okhttp3:okhttp:$okhttp",
+            retrofit2   : [
+                    retrofit               : "com.squareup.retrofit2:retrofit:$retrofit",
+                    moshi_converter_adapter: "com.squareup.retrofit2:converter-moshi:$retrofit",
+                    rxjava2_call_adapter   : "com.squareup.retrofit2:adapter-rxjava2:$retrofit"
+            ],
+            json_parsing: [
+                    moshi: "com.squareup.moshi:moshi:${moshi}"
+            ]
+    ]
+
+    loggingDependency = [
+            timber             : "com.jakewharton.timber:timber:$timber",
+            okhttp3_interceptor: "com.squareup.okhttp3:logging-interceptor:$okhttp_logging_interceptor"
+    ]
+
+    core = [
+            kotlin        : [
+                    jdk: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+                    ktx: "androidx.core:core-ktx:$core_ktx"
+            ],
+            support       : [
+                    appcompat: "androidx.appcompat:appcompat:$appcompat"
+            ],
+            navigation_ktx: [
+                    fragment: "androidx.navigation:navigation-fragment-ktx:$navigation_ktx",
+                    ui      : "androidx.navigation:navigation-ui-ktx:$navigation_ktx",
+            ],
+            rxjava2 : "io.reactivex.rxjava2:rxjava:$rxjava2"
+    ]
+
+    ui = [
+            ktx                : [
+                    fragment : "androidx.fragment:fragment-ktx:$fragment_ktx",
+                    lifecycle: "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_ktx",
+            ],
+            constraint_layout  :  "androidx.constraintlayout:constraintlayout:$constraint_layout",
+            material           : "com.google.android.material:material:$material",
+            recyclerview       : "androidx.recyclerview:recyclerview:$recyclerview",
+            cardview           : "androidx.cardview:cardview:$cardview",
+            //lifecycle_extension: "androidx.lifecycle:lifecycle-extensions:$lifecycle_extension",
+            //circleimageview    : "de.hdodenhof:circleimageview:$circleimageview"
+    ]
+
+    testing = [
+            junit : "junit:junit:$junit",
+            espresso_core : "androidx.test.espresso:espresso-core:$espresso"
+    ]
+}

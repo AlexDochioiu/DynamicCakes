@@ -1,0 +1,47 @@
+package com.github.alexdochioiu.core
+
+import android.app.Activity
+import android.app.Application
+import android.content.Context
+import androidx.fragment.app.FragmentActivity
+import com.github.alexdochioiu.core.di.CoreComponent
+import com.github.alexdochioiu.core.di.DaggerCoreComponent
+import com.github.alexdochioiu.core.navigation.DynamicFeature
+import com.github.alexdochioiu.core.navigation.DynamicNavigationManager
+import javax.inject.Inject
+
+/**
+ * Created by Alex Dochioiu on 2019-05-22
+ */
+class CoreApplication : Application() {
+
+    @Inject
+    internal lateinit var dynamicNavigationManager: DynamicNavigationManager
+
+    override fun onCreate() {
+        super.onCreate()
+
+        appComponent.inject(this)
+    }
+
+    private val appComponent: CoreComponent by lazy {
+        DaggerCoreComponent
+            .factory()
+            .create(this)
+    }
+
+    companion object {
+        @JvmStatic
+        fun appComponent(context: Context) =
+            (context.applicationContext as CoreApplication).appComponent
+    }
+}
+
+internal fun EntryActivity.navigateToFeature(feature: DynamicFeature) =
+    this.getCoreApplication().dynamicNavigationManager.navigateToFeature(this, feature)
+
+fun Activity.getCoreApplication() = this.application as CoreApplication
+fun FragmentActivity.getCoreApplication() = this.application as CoreApplication
+
+fun Activity.appComponent() = CoreApplication.appComponent(this)
+fun FragmentActivity.appComponent() = CoreApplication.appComponent(this)
