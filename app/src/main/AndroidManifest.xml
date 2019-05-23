@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.github.alexdochioiu.core">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
             android:name="com.github.alexdochioiu.core.CoreApplication"
             android:allowBackup="true"

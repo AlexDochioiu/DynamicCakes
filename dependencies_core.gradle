@@ -1,7 +1,8 @@
 dependencies {
     api core.kotlin.jdk
     api core.kotlin.ktx
-    api core.rxjava2
+    api core.rxjava2.rxjava
+    api core.rxjava2.rxandroid
     api core.support.appcompat
 
     api loggingDependency.timber

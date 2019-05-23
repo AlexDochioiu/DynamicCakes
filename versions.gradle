@@ -26,6 +26,7 @@ ext {
             lifecycle_extension = '2.1.0-alpha04',
 
             rxjava2 = '2.2.8',
+            rxandroid = '2.1.1',
 
             //ktx
             core_ktx = '1.2.0-alpha01',
@@ -69,7 +70,10 @@ ext {
                     fragment: "androidx.navigation:navigation-fragment-ktx:$navigation_ktx",
                     ui      : "androidx.navigation:navigation-ui-ktx:$navigation_ktx",
             ],
-            rxjava2 : "io.reactivex.rxjava2:rxjava:$rxjava2"
+            rxjava2 : [
+                    rxjava : "io.reactivex.rxjava2:rxjava:$rxjava2",
+                    rxandroid: "io.reactivex.rxjava2:rxandroid:$rxandroid"
+            ]
     ]
 
     ui = [
@@ -81,8 +85,7 @@ ext {
             material           : "com.google.android.material:material:$material",
             recyclerview       : "androidx.recyclerview:recyclerview:$recyclerview",
             cardview           : "androidx.cardview:cardview:$cardview",
-            //lifecycle_extension: "androidx.lifecycle:lifecycle-extensions:$lifecycle_extension",
-            //circleimageview    : "de.hdodenhof:circleimageview:$circleimageview"
+            lifecycle_extension: "androidx.lifecycle:lifecycle-extensions:$lifecycle_extension",
     ]
 
     testing = [

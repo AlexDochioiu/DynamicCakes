@@ -3,6 +3,7 @@ package com.github.alexdochioiu.core
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.content.Intent
 import androidx.fragment.app.FragmentActivity
 import com.github.alexdochioiu.core.di.CoreComponent
 import com.github.alexdochioiu.core.di.DaggerCoreComponent
@@ -44,8 +45,10 @@ class CoreApplication : Application() {
     }
 }
 
-internal fun EntryActivity.navigateToFeature(feature: DynamicFeature) =
-    this.getCoreApplication().dynamicNavigationManager.navigateToFeature(this, feature)
+internal fun EntryActivity.navigateToFeatureAsNewTask(feature: DynamicFeature) =
+    this.getCoreApplication().dynamicNavigationManager.navigateToFeature(this, feature,
+        Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TASK and Intent.FLAG_ACTIVITY_CLEAR_TOP
+        )
 
 fun Activity.getCoreApplication() = this.application as CoreApplication
 fun FragmentActivity.getCoreApplication() = this.application as CoreApplication

@@ -2,7 +2,6 @@ package com.github.alexdochioiu.core
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import com.github.alexdochioiu.core.navigation.Features
 
 internal class EntryActivity : AppCompatActivity() {
@@ -14,7 +13,7 @@ internal class EntryActivity : AppCompatActivity() {
 
         //approach 1 : In my view it is better in this particular case since we do not need to inflate a layout
         //                 and it also allows us to better manage the flow between dynamic features provided on demand
-        navigateToFeature(Features.Main)
+        navigateToFeatureAsNewTask(Features.Main)
 
 
         //approach 2 : Using the new navigation component

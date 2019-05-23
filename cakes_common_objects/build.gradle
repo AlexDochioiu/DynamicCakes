@@ -1,22 +1,23 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 apply from: '../compile_options.gradle'
-apply from: '../dagger.gradle'
-apply from: '../dependencies_core.gradle'
-apply from: '../dependencies_ui.gradle'
 
 android {
     compileSdkVersion 28
+
+
     defaultConfig {
-        applicationId "com.github.alexdochioiu.core"
         minSdkVersion 23
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -24,18 +25,11 @@ android {
         }
     }
 
-
-    dynamicFeatures = [":cakes_ui", ":cakes_networking", ":cakes_repository"]
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation networkingDependencies.okhttp3
-    implementation networkingDependencies.retrofit2.retrofit
-    implementation networkingDependencies.retrofit2.moshi_converter_adapter
-
-    implementation loggingDependency.okhttp3_interceptor
-
-    testImplementation testing.junit
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation networkingDependencies.json_parsing.moshi
 }
