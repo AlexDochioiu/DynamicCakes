@@ -13,7 +13,7 @@ internal class EntryActivity : AppCompatActivity() {
 
         //approach 1 : In my view it is better in this particular case since we do not need to inflate a layout
         //                 and it also allows us to better manage the flow between dynamic features provided on demand
-        navigateToFeatureAsNewTask(Features.Main)
+        navigateToFeature(Features.Main)
 
 
         //approach 2 : Using the new navigation component

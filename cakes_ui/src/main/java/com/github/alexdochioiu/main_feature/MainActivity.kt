@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Adapter
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,20 +41,30 @@ class MainActivity : AppCompatActivity(), CakesAdapter.CakesListener {
         rvCakes.layoutManager = LinearLayoutManager(this)
         rvCakes.adapter = cakesAdapter
 
+        swipeRefreshLayout.setOnRefreshListener {
+            Toast.makeText(this, "Refreshing Cakes", Toast.LENGTH_SHORT).show() //TODO use string asset
+            mainViewModel.updateCakes()
+        }
+
         mainViewModel.cakes.observe(this, Observer { observedItems ->
+            swipeRefreshLayout.isRefreshing = false
+
             cakesAdapter.replaceItemsAndNotify(observedItems)
         })
 
         mainViewModel.failure.observe(this, Observer {
+            swipeRefreshLayout.isRefreshing = false
             cakesAdapter.clearItemsAndNotify()
+
             Timber.e(it) //TODO popup
         })
 
+        swipeRefreshLayout.isRefreshing = true
         mainViewModel.updateCakes()
     }
 
     override fun onCakeSelected(cake: Cake) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(this, cake.description, Toast.LENGTH_SHORT).show()
     }
 
     private val featureComponent: FeatureComponent by lazy {

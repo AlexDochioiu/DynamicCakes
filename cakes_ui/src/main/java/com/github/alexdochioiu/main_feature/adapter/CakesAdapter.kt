@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.item_cake.view.*
 import javax.inject.Inject
 
 @Feature_UiScope
-class CakesAdapter @Inject constructor(private val picasso: Picasso)
+class CakesAdapter @Inject constructor(private val picasso: Picasso, private val listener: CakesListener)
     : RecyclerView.Adapter<CakesAdapter.CakesHolder>() {
 
     private var cakes: List<Cake> = emptyList()
@@ -45,12 +45,11 @@ class CakesAdapter @Inject constructor(private val picasso: Picasso)
             view.setOnClickListener(this)
 
             view.item_cake_tvTitle.text = cake.title
-            view.item_cake_tvDescription.text = cake.description
             picasso.load(cake.imageUrl).fit().centerCrop().into(view.item_cake_ivCake)
         }
 
         override fun onClick(v: View?) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            listener.onCakeSelected(cakes[adapterPosition])
         }
     }
 

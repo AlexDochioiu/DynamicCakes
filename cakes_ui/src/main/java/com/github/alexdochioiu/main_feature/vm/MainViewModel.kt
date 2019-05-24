@@ -23,7 +23,7 @@ class MainViewModel constructor(private val cakesRepository: CakesRepository) : 
 
     fun updateCakes() {
         val disposable = cakesDisposable
-        if (disposable == null || !disposable.isDisposed) {
+        if (disposable == null || disposable.isDisposed) {
             //do not restart the call unless the previous one finished
 
             cakesDisposable = cakesRepository.getUniqueOrderedCakes()

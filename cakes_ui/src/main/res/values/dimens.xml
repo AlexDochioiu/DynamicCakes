@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="cake_image_size">100dp</dimen>
+    <dimen name="cake_image_size">70dp</dimen>
+    <dimen name="cake_image_text_margin">10dp</dimen>
 </resources>
