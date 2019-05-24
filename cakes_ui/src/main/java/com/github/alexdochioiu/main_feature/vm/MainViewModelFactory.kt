@@ -1,13 +1,17 @@
 package com.github.alexdochioiu.main_feature.vm
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.github.alexdochioiu.core.di.AppContext
 import com.github.alexdochioiu.core.di.Feature_UiScope
 import com.github.alexdochioiu.main_feature_repository.CakesRepository
 import javax.inject.Inject
 
 @Feature_UiScope
-class MainViewModelFactory @Inject internal constructor(private val cakesRepository: CakesRepository) :
+class MainViewModelFactory @Inject internal constructor(
+    private val cakesRepository: CakesRepository,
+    @AppContext private val appContext: Context) :
     ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
@@ -16,6 +20,6 @@ class MainViewModelFactory @Inject internal constructor(private val cakesReposit
             throw IllegalArgumentException("Unknown ViewModel class")
         }
 
-        return MainViewModel(cakesRepository) as T
+        return MainViewModel(cakesRepository, appContext) as T
     }
 }

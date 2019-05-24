@@ -1,10 +1,9 @@
 package com.github.alexdochioiu.main_feature
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Adapter
-import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,7 +17,6 @@ import com.github.alexdochioiu.main_feature_common_objects.Cake
 import com.github.alexdochioiu.main_feature_networking.di.DaggerCakesNetworkComponent
 import com.github.alexdochioiu.main_feature_repository.di.DaggerCakesRepositoryComponent
 import kotlinx.android.synthetic.main.activity_main.*
-import timber.log.Timber
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), CakesAdapter.CakesListener {
@@ -42,21 +40,32 @@ class MainActivity : AppCompatActivity(), CakesAdapter.CakesListener {
         rvCakes.adapter = cakesAdapter
 
         swipeRefreshLayout.setOnRefreshListener {
-            Toast.makeText(this, "Refreshing Cakes", Toast.LENGTH_SHORT).show() //TODO use string asset
             mainViewModel.updateCakes()
         }
 
         mainViewModel.cakes.observe(this, Observer { observedItems ->
             swipeRefreshLayout.isRefreshing = false
+            Toast.makeText(this, getString(R.string.refreshed_cakes_toast_message), Toast.LENGTH_SHORT).show()
 
             cakesAdapter.replaceItemsAndNotify(observedItems)
         })
 
-        mainViewModel.failure.observe(this, Observer {
+        mainViewModel.failure.observe(this, Observer { errorMessage ->
             swipeRefreshLayout.isRefreshing = false
             cakesAdapter.clearItemsAndNotify()
 
-            Timber.e(it) //TODO popup
+            AlertDialog.Builder(this)
+                .setTitle(R.string.generic_error)
+                .setMessage(errorMessage)
+                .setPositiveButton(R.string.retry_button) { dialog, _ ->
+                    dialog.dismiss()
+                    swipeRefreshLayout.isRefreshing = true
+
+                    mainViewModel.updateCakes()
+                }.setNegativeButton(R.string.cancel_button) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
         })
 
         swipeRefreshLayout.isRefreshing = true
@@ -64,7 +73,15 @@ class MainActivity : AppCompatActivity(), CakesAdapter.CakesListener {
     }
 
     override fun onCakeSelected(cake: Cake) {
-        Toast.makeText(this, cake.description, Toast.LENGTH_SHORT).show()
+        // todo ideally we don't want (view) actions triggered from any place other than the viewmodel.
+        //          there are multiple solutions to do this (observable pattern, vm implementic listener, etc)
+
+        AlertDialog.Builder(this)
+            .setMessage(cake.description)
+            .setPositiveButton(R.string.ok_button) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private val featureComponent: FeatureComponent by lazy {

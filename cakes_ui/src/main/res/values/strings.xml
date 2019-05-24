@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="generic_error">Error</string>
+    <string name="failed_fetch_dialog_body_no_internet">Are you connected to the internet?</string>
+
+    <string name="refreshed_cakes_toast_message">Refreshed Data</string>
+
+    <string name="retry_button">Retry</string>
+    <string name="ok_button">OK</string>
+    <string name="cancel_button">Cancel</string>
+</resources>
