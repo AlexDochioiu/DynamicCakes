@@ -25,8 +25,8 @@ ext {
             appcompat = '1.1.0-alpha05',
             lifecycle_extension = '2.1.0-alpha04',
 
-            rxjava2 = '2.2.8',
-            rxandroid = '2.1.1',
+            rxjava2 = '2.2.0',
+            rxkotlin = '2.3.0',
 
             //ktx
             core_ktx = '1.2.0-alpha01',
@@ -70,9 +70,10 @@ ext {
                     fragment: "androidx.navigation:navigation-fragment-ktx:$navigation_ktx",
                     ui      : "androidx.navigation:navigation-ui-ktx:$navigation_ktx",
             ],
+
             rxjava2 : [
                     rxjava : "io.reactivex.rxjava2:rxjava:$rxjava2",
-                    rxandroid: "io.reactivex.rxjava2:rxandroid:$rxandroid"
+                    rxkotlin : "io.reactivex.rxjava2:rxkotlin:$rxkotlin"
             ]
     ]
 
