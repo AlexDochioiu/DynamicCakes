@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:clickable="true"
+        android:focusable="true" android:foreground="?attr/selectableItemBackground"
+        android:layout_margin="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:id="@+id/item_cake_ivCake"
+                android:layout_width="@dimen/cake_image_size"
+                android:layout_height="@dimen/cake_image_size"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:src="@drawable/ic_launcher_background"
+                tools:ignore="ContentDescription"/>
+
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                  android:id="@+id/item_cake_tvTitle"
+                  android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                  app:layout_constraintStart_toEndOf="@id/item_cake_ivCake"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintTop_toTopOf="parent"
+                  tools:text="Sample title"/>
+
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                  android:id="@+id/item_cake_tvDescription"
+                  android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                  app:layout_constraintStart_toEndOf="@id/item_cake_ivCake"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintTop_toBottomOf="@id/item_cake_tvTitle"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  tools:text="Sample description"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

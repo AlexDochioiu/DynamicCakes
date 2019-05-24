@@ -8,7 +8,9 @@ ext {
 
             retrofit = '2.5.0',
 
-            glide = '4.9.0',
+            picasso = '2.71828',
+
+            picasso_okhttp3_downloader = '1.1.0',
             okhttp = '3.14.0',
             moshi = '1.8.0',
             dagger = '2.22.1',
@@ -41,8 +43,11 @@ ext {
 
     // dependencies
     networkingDependencies = [
-            glide       : "com.github.bumptech.glide:glide:$glide",
-            okhttp3     : "com.squareup.okhttp3:okhttp:$okhttp",
+            picasso     : "com.squareup.picasso:picasso:$picasso",
+            okhttp3     : [
+                    okhttp: "com.squareup.okhttp3:okhttp:$okhttp",
+                    picasso_downloader : "com.jakewharton.picasso:picasso2-okhttp3-downloader:$picasso_okhttp3_downloader"
+            ],
             retrofit2   : [
                     retrofit               : "com.squareup.retrofit2:retrofit:$retrofit",
                     moshi_converter_adapter: "com.squareup.retrofit2:converter-moshi:$retrofit",
@@ -71,9 +76,9 @@ ext {
                     ui      : "androidx.navigation:navigation-ui-ktx:$navigation_ktx",
             ],
 
-            rxjava2 : [
-                    rxjava : "io.reactivex.rxjava2:rxjava:$rxjava2",
-                    rxkotlin : "io.reactivex.rxjava2:rxkotlin:$rxkotlin"
+            rxjava2       : [
+                    rxjava  : "io.reactivex.rxjava2:rxjava:$rxjava2",
+                    rxkotlin: "io.reactivex.rxjava2:rxkotlin:$rxkotlin"
             ]
     ]
 
@@ -82,7 +87,7 @@ ext {
                     fragment : "androidx.fragment:fragment-ktx:$fragment_ktx",
                     lifecycle: "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_ktx",
             ],
-            constraint_layout  :  "androidx.constraintlayout:constraintlayout:$constraint_layout",
+            constraint_layout  : "androidx.constraintlayout:constraintlayout:$constraint_layout",
             material           : "com.google.android.material:material:$material",
             recyclerview       : "androidx.recyclerview:recyclerview:$recyclerview",
             cardview           : "androidx.cardview:cardview:$cardview",
@@ -90,7 +95,7 @@ ext {
     ]
 
     testing = [
-            junit : "junit:junit:$junit",
-            espresso_core : "androidx.test.espresso:espresso-core:$espresso"
+            junit        : "junit:junit:$junit",
+            espresso_core: "androidx.test.espresso:espresso-core:$espresso"
     ]
 }

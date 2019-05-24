@@ -31,7 +31,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation networkingDependencies.okhttp3
+    api networkingDependencies.okhttp3.picasso_downloader
+    implementation networkingDependencies.okhttp3.okhttp
     implementation networkingDependencies.retrofit2.retrofit
     implementation networkingDependencies.retrofit2.moshi_converter_adapter
 

@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.github.alexdochioiu.core.di.AppContext
 import com.github.alexdochioiu.core.di.CoreScope
+import com.jakewharton.picasso.OkHttp3Downloader
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
@@ -15,7 +16,7 @@ import java.io.File
  * Created by Alex Dochioiu on 2019-05-22
  */
 @Module
-class NetworkModule {
+internal class NetworkModule {
 
     @Provides
     @CoreScope
@@ -42,5 +43,11 @@ class NetworkModule {
             .addInterceptor(loggingInterceptor)
             .cache(cache)
             .build()
+
+    @Provides
+    @CoreScope
+    internal fun picassoDownloader(
+        okHttpClient: OkHttpClient
+    ): OkHttp3Downloader = OkHttp3Downloader(okHttpClient)
 
 }

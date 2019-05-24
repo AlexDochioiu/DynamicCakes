@@ -1,4 +1,4 @@
-package com.github.alexdochioiu.main_feature
+package com.github.alexdochioiu.main_feature.vm
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData

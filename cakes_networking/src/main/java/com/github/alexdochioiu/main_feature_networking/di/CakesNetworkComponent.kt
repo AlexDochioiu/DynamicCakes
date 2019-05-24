@@ -7,6 +7,7 @@ import com.github.alexdochioiu.core.di.AppContext
 import com.github.alexdochioiu.core.di.CoreComponent
 import com.github.alexdochioiu.core.di.Feature_NetworkingPersistenceScope
 import com.github.alexdochioiu.main_feature_networking.retrofit.CakesService
+import com.jakewharton.picasso.OkHttp3Downloader
 import dagger.Component
 
 /**
@@ -23,6 +24,10 @@ interface CakesNetworkComponent {
 
     @AppContext
     fun appContext(): Context
+    //endregion
+
+    //region Network
+    fun picassoDownloader(): OkHttp3Downloader
     //endregion
 
     //region Retrofit Services

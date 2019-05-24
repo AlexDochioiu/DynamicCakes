@@ -6,10 +6,10 @@ import com.github.alexdochioiu.core.CoreApplication
 import com.github.alexdochioiu.core.di.network.ConvertorsModule
 import com.github.alexdochioiu.core.di.network.NetworkModule
 import com.github.alexdochioiu.core.network.RetrofitFactory
+import com.jakewharton.picasso.OkHttp3Downloader
 import com.squareup.moshi.Moshi
 import dagger.BindsInstance
 import dagger.Component
-import okhttp3.OkHttpClient
 import retrofit2.Converter
 
 /**
@@ -38,9 +38,9 @@ interface CoreComponent : InjectableComponent<CoreApplication> {
 
 
     //region Network
-    fun okHttpClient(): OkHttpClient
-
     fun retrofitFactory(): RetrofitFactory
+
+    fun picassoDownloader(): OkHttp3Downloader
     //endregion
 
     //region Converters

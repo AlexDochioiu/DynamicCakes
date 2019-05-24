@@ -3,7 +3,6 @@ package com.github.alexdochioiu.main_feature.vm
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.github.alexdochioiu.core.di.Feature_UiScope
-import com.github.alexdochioiu.main_feature.MainViewModel
 import com.github.alexdochioiu.main_feature_repository.CakesRepository
 import javax.inject.Inject
 
