@@ -13,7 +13,7 @@ import javax.inject.Inject
  * this object outside this module
  */
 @Feature_RepositoryScope
-class CakesRepository @Inject internal constructor(val cakesService: CakesService){
+class CakesRepository @Inject internal constructor(private val cakesService: CakesService){
 
     // todo maybe first try and get them from a db if a persistence layer existed
     fun getUniqueOrderedCakes() : Single<List<Cake>> =

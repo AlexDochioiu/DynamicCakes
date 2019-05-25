@@ -7,15 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.github.alexdochioiu.core.appComponent
+import com.github.alexdochioiu.core.CoreApplication
 import com.github.alexdochioiu.main_feature.adapter.CakesAdapter
 import com.github.alexdochioiu.main_feature.di.DaggerFeatureComponent
 import com.github.alexdochioiu.main_feature.di.FeatureComponent
 import com.github.alexdochioiu.main_feature.vm.MainViewModel
 import com.github.alexdochioiu.main_feature.vm.MainViewModelFactory
 import com.github.alexdochioiu.main_feature_common_objects.Cake
-import com.github.alexdochioiu.main_feature_networking.di.DaggerCakesNetworkComponent
-import com.github.alexdochioiu.main_feature_repository.di.DaggerCakesRepositoryComponent
+import com.github.alexdochioiu.main_feature_repository.di.buildRepositoryComponent
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -45,6 +44,8 @@ class MainActivity : AppCompatActivity(), CakesAdapter.CakesListener {
 
         mainViewModel.cakes.observe(this, Observer { observedItems ->
             swipeRefreshLayout.isRefreshing = false
+
+            // TODO this appears when changing orientation too
             Toast.makeText(this, getString(R.string.refreshed_cakes_toast_message), Toast.LENGTH_SHORT).show()
 
             cakesAdapter.replaceItemsAndNotify(observedItems)
@@ -74,7 +75,7 @@ class MainActivity : AppCompatActivity(), CakesAdapter.CakesListener {
 
     override fun onCakeSelected(cake: Cake) {
         // todo ideally we don't want (view) actions triggered from any place other than the viewmodel.
-        //          there are multiple solutions to do this (observable pattern, vm implementic listener, etc)
+        //          there are multiple solutions to do this (observable pattern, VM implements listener, etc)
 
         AlertDialog.Builder(this)
             .setMessage(cake.description)
@@ -85,19 +86,11 @@ class MainActivity : AppCompatActivity(), CakesAdapter.CakesListener {
     }
 
     private val featureComponent: FeatureComponent by lazy {
-        val cakesNetworkComponent = DaggerCakesNetworkComponent
-            .builder()
-            .coreComponent(this.appComponent())
-            .build()
-
-        val cakesRepositoryComponent = DaggerCakesRepositoryComponent
-            .builder()
-            .cakesNetworkComponent(cakesNetworkComponent)
-            .build()
-
         DaggerFeatureComponent
             .factory()
-            .create(cakesRepositoryComponent, this)
+            .create(
+                buildRepositoryComponent(this.application as CoreApplication), this
+            )
     }
 
     companion object {

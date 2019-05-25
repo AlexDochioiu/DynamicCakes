@@ -4,14 +4,18 @@ import android.app.Application
 import android.content.Context
 import com.github.alexdochioiu.core.CoreApplication
 import com.github.alexdochioiu.core.di.AppContext
+import com.github.alexdochioiu.core.di.CoreComponent
+import com.github.alexdochioiu.core.di.DaggerCoreComponent
 import com.github.alexdochioiu.core.di.Feature_RepositoryScope
-import com.github.alexdochioiu.main_feature_networking.di.CakesNetworkComponent
 import com.github.alexdochioiu.main_feature_repository.CakesRepository
 import com.jakewharton.picasso.OkHttp3Downloader
 import dagger.Component
 
 @Feature_RepositoryScope
-@Component(dependencies = [CakesNetworkComponent::class]) //TODO there would be the persistence dependency too
+@Component(
+    dependencies = [CoreComponent::class],
+    modules = [NetworkingBridgeModule::class] //todo persistence layer too if it exists
+)
 interface CakesRepositoryComponent {
 
     //region Context - Forwarding them down to the ui module
@@ -30,5 +34,14 @@ interface CakesRepositoryComponent {
     //region Repositories
     fun cakesRepo(): CakesRepository
     //endregion
+}
 
+fun buildRepositoryComponent(coreApplication: CoreApplication): CakesRepositoryComponent {
+    val coreComponent: CoreComponent =
+        DaggerCoreComponent.factory()
+            .create(coreApplication)
+
+    return DaggerCakesRepositoryComponent.builder()
+        .coreComponent(coreComponent)
+        .build()
 }

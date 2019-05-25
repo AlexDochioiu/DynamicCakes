@@ -21,12 +21,15 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':app')
+    implementation project(':core')
 
-    // todo This should be changed to implementation but in order to do so a new module should be created
-    // todo          (the dagger component should be exposed down to ui level)
-    // todo if you are curious about what I mean, feel free to ask in the interview!!
-    api project(':cakes_networking')
+    // You'll notice a weird dagger2 relationship between [CakesRepositoryComponent] and [CakesNetworkingComponent]
+    //    The reason for it is so I don't have to change this to 'api'
+    implementation project(':cakes_networking')
+
+    //This should not be added here since it is present in the networking layer. However, it fails to build unless
+    // I have it here too. I think this is a bug in the gradle build
+    api project (':cakes_common_objects')
 
     // todo Create a persistence module as well if needed and add it here; If persistence is not needed,
     // todo           probably networking and repository layers should be merged into a single one
