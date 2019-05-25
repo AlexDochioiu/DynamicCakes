@@ -12,7 +12,7 @@ import com.github.alexdochioiu.core.CoreApplication
 import com.github.alexdochioiu.main_feature.adapter.CakesAdapter
 import com.github.alexdochioiu.main_feature.di.DaggerFeatureComponent
 import com.github.alexdochioiu.main_feature.di.FeatureComponent
-import com.github.alexdochioiu.main_feature.ui.CustomDividerItemDecoration
+import com.github.alexdochioiu.core.ui.CustomDividerItemDecoration
 import com.github.alexdochioiu.main_feature.vm.MainViewModel
 import com.github.alexdochioiu.main_feature.vm.MainViewModelFactory
 import com.github.alexdochioiu.main_feature_common_objects.Cake
@@ -41,7 +41,12 @@ class MainActivity : AppCompatActivity(), CakesAdapter.CakesListener {
         rvCakes.adapter = cakesAdapter
 
         // Just added this because it is in the requirements. A custom decorator can be created if needed/desired
-        rvCakes.addItemDecoration(CustomDividerItemDecoration(this, LinearLayoutManager.VERTICAL))
+        rvCakes.addItemDecoration(
+            CustomDividerItemDecoration(
+                this,
+                LinearLayoutManager.VERTICAL
+            )
+        )
 
         swipeRefreshLayout.setOnRefreshListener {
             triggerCakesRefresh()

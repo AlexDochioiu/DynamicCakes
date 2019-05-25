@@ -2,6 +2,7 @@ package com.github.alexdochioiu.main_feature.vm
 
 import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.github.alexdochioiu.main_feature.R
 import com.github.alexdochioiu.main_feature.vm.test_utils.TestSchedulersProvider
 import com.github.alexdochioiu.main_feature_common_objects.Cake
 import com.github.alexdochioiu.main_feature_repository.CakesRepository
@@ -9,16 +10,13 @@ import io.reactivex.Single
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
 import junit.framework.Assert.assertSame
-import org.junit.Before
-import org.junit.BeforeClass
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
 import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito.doAnswer
-import org.mockito.Mockito.doReturn
+import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
+import java.lang.RuntimeException
 import java.util.concurrent.CountDownLatch
 
 
@@ -36,7 +34,7 @@ class MainViewModelTest { // todo extract a base ViewModelTest class and put it 
 
     @Before
     fun setUp() {
-        //doReturn(ERROR_MESSAGE).`when`(appContext).getString(R.string.failed_fetch_dialog_body_no_internet)
+        doReturn(ERROR_MESSAGE).`when`(appContext).getString(R.string.failed_fetch_dialog_body_no_internet)
 
         mainViewModel = MainViewModel(cakesRepository, TestSchedulersProvider(), appContext)
     }
@@ -66,12 +64,31 @@ class MainViewModelTest { // todo extract a base ViewModelTest class and put it 
             assertSame(expected, returned)
         }
 
+        mainViewModel.failure.observeForever {
+            Assert.fail()
+        }
+
         mainViewModel.updateCakes()
         countDownLatch.await()
     }
 
     @Test(timeout = 100L)
-    fun getFailure() {
+    fun `getFailure receives failure when fetching data fetching`() {
+        val countDownLatch = CountDownLatch(1)
+
+        doAnswer { Single.error<List<Cake>>(RuntimeException("")) }.`when`(cakesRepository).getUniqueOrderedCakes()
+
+        mainViewModel.cakes.observeForever { returned ->
+            Assert.fail()
+        }
+
+        mainViewModel.failure.observeForever { returned ->
+            countDownLatch.countDown()
+            assertSame(ERROR_MESSAGE, returned)
+        }
+
+        mainViewModel.updateCakes()
+        countDownLatch.await()
     }
 
 

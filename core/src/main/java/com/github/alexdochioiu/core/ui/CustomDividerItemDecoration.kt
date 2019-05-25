@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.alexdochioiu.main_feature.ui
+package com.github.alexdochioiu.core.ui
 
 import android.content.Context
 import android.graphics.Canvas

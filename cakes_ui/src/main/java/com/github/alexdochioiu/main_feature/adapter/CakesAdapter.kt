@@ -45,6 +45,9 @@ class CakesAdapter @Inject constructor(private val picasso: Picasso, private val
             view.setOnClickListener(this)
 
             view.item_cake_tvTitle.text = cake.title
+
+            // todo without the okhttp network cache (currently off), this will end up re-fetching the
+            //  images when the orientation changes.
             picasso.load(cake.imageUrl).fit().centerCrop().into(view.item_cake_ivCake)
         }
 
