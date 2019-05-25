@@ -11,6 +11,10 @@ import dagger.Provides
 @Module
 internal class NetworkingBridgeModule {
 
+    /**
+     * I know this looks a bit weird but it allows me to keep using implementation instead of api for the gradle
+     * dependency. It also maintains all the compile-time safety and I don't thing there's any performance impact to it
+     */
     @Feature_RepositoryScope
     @Provides
     fun networkingComponent(coreComponent: CoreComponent): CakesNetworkComponent =
