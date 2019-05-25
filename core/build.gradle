@@ -6,6 +6,7 @@ apply from: '../compile_options.gradle'
 apply from: '../dagger.gradle'
 apply from: '../dependencies_core.gradle'
 apply from: '../dependencies_ui.gradle'
+apply from: '../dependencies_unit_tests.gradle'
 
 android {
     compileSdkVersion 28
@@ -37,6 +38,4 @@ dependencies {
     implementation networkingDependencies.retrofit2.moshi_converter_adapter
 
     implementation loggingDependency.okhttp3_interceptor
-
-    testImplementation testing.junit
 }

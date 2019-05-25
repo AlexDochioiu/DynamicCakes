@@ -29,6 +29,7 @@ ext {
 
             rxjava2 = '2.2.0',
             rxkotlin = '2.3.0',
+            rxandroid = '2.1.1',
 
             //ktx
             core_ktx = '1.2.0-alpha01',
@@ -38,15 +39,17 @@ ext {
 
             //test
             junit = '4.12',
-            espresso = '3.1.1'
+            espresso = '3.1.1',
+            mockito = '2.27.0',
+            arch_core_testing = '2.1.0-beta01'
     ]
 
     // dependencies
     networkingDependencies = [
             picasso     : "com.squareup.picasso:picasso:$picasso",
             okhttp3     : [
-                    okhttp: "com.squareup.okhttp3:okhttp:$okhttp",
-                    picasso_downloader : "com.jakewharton.picasso:picasso2-okhttp3-downloader:$picasso_okhttp3_downloader"
+                    okhttp            : "com.squareup.okhttp3:okhttp:$okhttp",
+                    picasso_downloader: "com.jakewharton.picasso:picasso2-okhttp3-downloader:$picasso_okhttp3_downloader"
             ],
             retrofit2   : [
                     retrofit               : "com.squareup.retrofit2:retrofit:$retrofit",
@@ -77,8 +80,9 @@ ext {
             ],
 
             rxjava2       : [
-                    rxjava  : "io.reactivex.rxjava2:rxjava:$rxjava2",
-                    rxkotlin: "io.reactivex.rxjava2:rxkotlin:$rxkotlin"
+                    rxjava   : "io.reactivex.rxjava2:rxjava:$rxjava2",
+                    rxkotlin : "io.reactivex.rxjava2:rxkotlin:$rxkotlin",
+                    rxandroid: "io.reactivex.rxjava2:rxandroid:$rxandroid"
             ]
     ]
 
@@ -95,7 +99,9 @@ ext {
     ]
 
     testing = [
-            junit        : "junit:junit:$junit",
-            espresso_core: "androidx.test.espresso:espresso-core:$espresso"
+            junit            : "junit:junit:$junit",
+            espresso_core    : "androidx.test.espresso:espresso-core:$espresso",
+            mockito          : "org.mockito:mockito-inline:$mockito",
+            arch_core_testing: "androidx.arch.core:core-testing:$arch_core_testing"
     ]
 }

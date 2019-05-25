@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 
 apply from: '../compile_options.gradle'
 apply from: '../dagger.gradle'
+apply from: '../dependencies_unit_tests.gradle'
 
 android {
     compileSdkVersion 28
@@ -33,4 +34,5 @@ dependencies {
 
     // todo Create a persistence module as well if needed and add it here; If persistence is not needed,
     // todo           probably networking and repository layers should be merged into a single one
+
 }

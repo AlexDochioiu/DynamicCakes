@@ -6,6 +6,7 @@ import com.github.alexdochioiu.core.CoreApplication
 import com.github.alexdochioiu.core.di.network.ConvertorsModule
 import com.github.alexdochioiu.core.di.network.NetworkModule
 import com.github.alexdochioiu.core.network.RetrofitFactory
+import com.github.alexdochioiu.core.rxjava.SchedulersProvider
 import com.jakewharton.picasso.OkHttp3Downloader
 import com.squareup.moshi.Moshi
 import dagger.BindsInstance
@@ -34,6 +35,8 @@ interface CoreComponent : InjectableComponent<CoreApplication> {
 
     @AppContext
     fun appContext(): Context
+
+    fun schedulersProvider(): SchedulersProvider
     //endregion
 
 

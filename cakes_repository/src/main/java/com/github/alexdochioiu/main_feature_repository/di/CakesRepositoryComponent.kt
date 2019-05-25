@@ -7,6 +7,7 @@ import com.github.alexdochioiu.core.di.AppContext
 import com.github.alexdochioiu.core.di.CoreComponent
 import com.github.alexdochioiu.core.di.DaggerCoreComponent
 import com.github.alexdochioiu.core.di.Feature_RepositoryScope
+import com.github.alexdochioiu.core.rxjava.SchedulersProvider
 import com.github.alexdochioiu.main_feature_repository.CakesRepository
 import com.jakewharton.picasso.OkHttp3Downloader
 import dagger.Component
@@ -25,6 +26,8 @@ interface CakesRepositoryComponent {
 
     @AppContext
     fun appContext(): Context
+
+    fun schedulersProvider(): SchedulersProvider
     //endregion
 
     //region Network

@@ -36,7 +36,7 @@ import androidx.recyclerview.widget.RecyclerView
  * recyclerView.addItemDecoration(mDividerItemDecoration);
 </pre> *
  */
-class CustomDividerItemDecoration
+class CustomDividerItemDecoration //TODO consider moving this to the core module so it can be reused (if needed)
 /**
  * Creates a divider [RecyclerView.ItemDecoration] that can be used with a
  * [LinearLayoutManager].
@@ -177,8 +177,8 @@ class CustomDividerItemDecoration
     }
 
     companion object {
-        val HORIZONTAL = LinearLayout.HORIZONTAL
-        val VERTICAL = LinearLayout.VERTICAL
+        const val HORIZONTAL = LinearLayout.HORIZONTAL
+        const val VERTICAL = LinearLayout.VERTICAL
 
         private val TAG = "DividerItem"
         private val ATTRS = intArrayOf(android.R.attr.listDivider)

@@ -5,14 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.github.alexdochioiu.core.mvvm.SingleLiveEvent
+import com.github.alexdochioiu.core.rxjava.SchedulersProvider
 import com.github.alexdochioiu.main_feature.R
 import com.github.alexdochioiu.main_feature_common_objects.Cake
 import com.github.alexdochioiu.main_feature_repository.CakesRepository
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 
 class MainViewModel constructor(
     private val cakesRepository: CakesRepository,
+    private val schedulersProvider: SchedulersProvider,
     private val appContext: Context) : ViewModel() {
 
     private var cakesDisposable: Disposable? = null
@@ -31,7 +32,7 @@ class MainViewModel constructor(
             //do not restart the call unless the previous one finished
 
             cakesDisposable = cakesRepository.getUniqueOrderedCakes()
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(schedulersProvider.getIoScheduler()) // todo make a SchedulersProvider class and inject it in construction (to be able and unit test this)
                 .subscribe(
                     { repoCakes -> _cakes.postValue(repoCakes) },
                     {

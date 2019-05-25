@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 
 apply from: '../compile_options.gradle'
 apply from: '../dagger.gradle'
+apply from: '../dependencies_unit_tests.gradle'
 
 android {
     compileSdkVersion 28
@@ -16,6 +17,9 @@ android {
 
     }
 
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -34,4 +38,6 @@ dependencies {
 
     implementation ui.lifecycle_extension
     implementation ui.constraint_layout
+
+    testImplementation project(':core')
 }
