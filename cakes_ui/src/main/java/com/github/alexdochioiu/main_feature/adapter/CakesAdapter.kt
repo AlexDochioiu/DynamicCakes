@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.item_cake.view.*
 import javax.inject.Inject
 
 @Feature_UiScope
-class CakesAdapter @Inject constructor(private val picasso: Picasso, private val listener: CakesListener)
+class CakesAdapter @Inject internal constructor(private val picasso: Picasso, private val listener: CakesListener)
     : RecyclerView.Adapter<CakesAdapter.CakesHolder>() {
 
     private var cakes: List<Cake> = emptyList()

@@ -14,7 +14,8 @@ import io.reactivex.disposables.Disposable
 class MainViewModel constructor(
     private val cakesRepository: CakesRepository,
     private val schedulersProvider: SchedulersProvider,
-    private val appContext: Context) : ViewModel() {
+    private val appContext: Context // todo wrap this in some ResourceProvider class
+) : ViewModel() {
 
     private var cakesDisposable: Disposable? = null
 
@@ -26,18 +27,28 @@ class MainViewModel constructor(
     val failure : LiveData<String>
         get() = _failure // MAX ONE OBSERVER AT ONCE DUE TO [SingleLiveEvent] LIMITATION
 
+    /**
+     * Used by the view to request the [List] of [Cake] to be updated. The response will be published using [LiveData]
+     * to [cakes] if successful. If the request fails, the error message should be intercepted using [failure]
+     */
     fun updateCakes() {
         val disposable = cakesDisposable
+
+        // todo this is currently not thread-safe and it is technically possible to trick this check (it is an unlikely edge case though)
         if (disposable == null || disposable.isDisposed) {
             //do not restart the call unless the previous one finished
 
             cakesDisposable = cakesRepository.getUniqueOrderedCakes()
-                .subscribeOn(schedulersProvider.getIoScheduler()) // todo make a SchedulersProvider class and inject it in construction (to be able and unit test this)
+                .subscribeOn(schedulersProvider.getIoScheduler())
                 .subscribe(
                     { repoCakes -> _cakes.postValue(repoCakes) },
                     {
-                        _failure.postValue(appContext.getString(R.string.failed_fetch_dialog_body_no_internet))
-                        // todo special handling for the type of error we get
+                        @Suppress("WhenWithOnlyElse")
+                        when(it) { // todo special handling for the type of error we get
+                            //is RuntimeException -> do sth
+                            else -> _failure.postValue(appContext.getString(R.string.failed_fetch_dialog_body_no_internet))
+                        }
+
                     })
         }
     }

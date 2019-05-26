@@ -26,17 +26,10 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 
 /**
- * DividerItemDecoration is a [RecyclerView.ItemDecoration] that can be used as a divider
- * between items of a [LinearLayoutManager]. It supports both [.HORIZONTAL] and
- * [.VERTICAL] orientations.
- *
- * <pre>
- * mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
- * mLayoutManager.getOrientation());
- * recyclerView.addItemDecoration(mDividerItemDecoration);
-</pre> *
+ * Identical to [androidx.recyclerview.widget.DividerItemDecoration] with the exception that there is no divider
+ * after the last item
  */
-class CustomDividerItemDecoration //TODO consider moving this to the core module so it can be reused (if needed)
+class CustomDividerItemDecoration
 /**
  * Creates a divider [RecyclerView.ItemDecoration] that can be used with a
  * [LinearLayoutManager].

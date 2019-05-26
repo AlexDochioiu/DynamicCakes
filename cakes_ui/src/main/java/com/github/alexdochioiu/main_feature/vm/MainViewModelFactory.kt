@@ -16,6 +16,9 @@ class MainViewModelFactory @Inject internal constructor(
     @AppContext private val appContext: Context) :
     ViewModelProvider.Factory {
 
+    /**
+     * Used to create the instance of [MainViewModel]
+     */
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass != MainViewModel::class.java) {

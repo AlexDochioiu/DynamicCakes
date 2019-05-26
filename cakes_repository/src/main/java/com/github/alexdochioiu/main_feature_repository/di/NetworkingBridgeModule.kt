@@ -12,8 +12,8 @@ import dagger.Provides
 internal class NetworkingBridgeModule {
 
     /**
-     * I know this looks a bit weird but it allows me to keep using implementation instead of api for the gradle
-     * dependency. It also maintains all the compile-time safety and I don't thing there's any performance impact to it
+     * I know this looks a bit weird but it allows me to keep using implementation instead of api for the networking module
+     * dependency. It also maintains all the compile-time safety and there's no performance impact to it
      */
     @Feature_RepositoryScope
     @Provides

@@ -8,15 +8,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.github.alexdochioiu.core.CoreApplication
+import com.github.alexdochioiu.core.coreComponent
+import com.github.alexdochioiu.core.ui.CustomDividerItemDecoration
 import com.github.alexdochioiu.main_feature.adapter.CakesAdapter
 import com.github.alexdochioiu.main_feature.di.DaggerFeatureComponent
 import com.github.alexdochioiu.main_feature.di.FeatureComponent
-import com.github.alexdochioiu.core.ui.CustomDividerItemDecoration
 import com.github.alexdochioiu.main_feature.vm.MainViewModel
 import com.github.alexdochioiu.main_feature.vm.MainViewModelFactory
 import com.github.alexdochioiu.main_feature_common_objects.Cake
-import com.github.alexdochioiu.main_feature_repository.di.buildRepositoryComponent
+import com.github.alexdochioiu.main_feature_repository.di.CakesRepositoryComponent
+import com.github.alexdochioiu.main_feature_repository.di.DaggerCakesRepositoryComponent
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -114,11 +115,14 @@ class MainActivity : AppCompatActivity(), CakesAdapter.CakesListener {
     }
 
     private val featureComponent: FeatureComponent by lazy {
-        DaggerFeatureComponent
+        val repoComponent: CakesRepositoryComponent =
+            DaggerCakesRepositoryComponent.builder()
+            .coreComponent(coreComponent())
+            .build()
+
+        return@lazy DaggerFeatureComponent
             .factory()
-            .create(
-                buildRepositoryComponent(this.application as CoreApplication), this
-            )
+            .create(repoComponent, this)
     }
 
     companion object {

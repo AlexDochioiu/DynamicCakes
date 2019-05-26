@@ -2,7 +2,6 @@ package com.github.alexdochioiu.main_feature_networking.di
 
 import com.github.alexdochioiu.core.di.Feature_NetworkingPersistenceScope
 import com.github.alexdochioiu.core.network.RetrofitFactory
-import com.github.alexdochioiu.main_feature_networking.baseApiUrl
 import com.github.alexdochioiu.main_feature_networking.retrofit.CakesService
 import dagger.Module
 import dagger.Provides
@@ -31,4 +30,8 @@ internal class RetrofitServiceModule {
         converterFactory: Converter.Factory,
         callAdapterFactory: CallAdapter.Factory
     ): Retrofit = retrofitFactory.makeInstance(baseApiUrl, converterFactory, callAdapterFactory)
+
+    companion object {
+        private const val baseApiUrl = "https://gist.githubusercontent.com"
+    }
 }

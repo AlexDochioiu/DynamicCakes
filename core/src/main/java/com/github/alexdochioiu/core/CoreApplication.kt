@@ -50,5 +50,9 @@ internal fun EntryActivity.navigateToFeature(feature: DynamicFeature) =
 fun Activity.getCoreApplication() = this.application as CoreApplication
 fun FragmentActivity.getCoreApplication() = this.application as CoreApplication
 
-fun Activity.appComponent() = CoreApplication.appComponent(this)
-fun FragmentActivity.appComponent() = CoreApplication.appComponent(this)
+/**
+ * Those two extensions should be *the only way* to fetch the core component
+ * todo should think of a way to fully block people from creating a core component inside a different android module
+ */
+fun Activity.coreComponent() = CoreApplication.appComponent(this)
+fun FragmentActivity.coreComponent() = CoreApplication.appComponent(this)

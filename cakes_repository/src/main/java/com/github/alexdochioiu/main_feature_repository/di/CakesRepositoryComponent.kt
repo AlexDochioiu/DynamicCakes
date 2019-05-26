@@ -38,13 +38,3 @@ interface CakesRepositoryComponent {
     fun cakesRepo(): CakesRepository
     //endregion
 }
-
-fun buildRepositoryComponent(coreApplication: CoreApplication): CakesRepositoryComponent {
-    val coreComponent: CoreComponent =
-        DaggerCoreComponent.factory()
-            .create(coreApplication)
-
-    return DaggerCakesRepositoryComponent.builder()
-        .coreComponent(coreComponent)
-        .build()
-}
