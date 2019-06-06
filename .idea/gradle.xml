@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/cakes_repository" />
             <option value="$PROJECT_DIR$/cakes_ui" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/dashboard_ui" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

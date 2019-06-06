@@ -2,7 +2,7 @@ package com.github.alexdochioiu.main_feature.vm
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.github.alexdochioiu.core.mvvm.SingleLiveEvent
 import com.github.alexdochioiu.core.rxjava.SchedulersProvider
@@ -19,12 +19,12 @@ class MainViewModel constructor(
 
     private var cakesDisposable: Disposable? = null
 
-    private val _cakes: MediatorLiveData<List<Cake>> = MediatorLiveData()
-    val cakes : LiveData<List<Cake>>
+    private val _cakes: MutableLiveData<List<Cake>> = MutableLiveData()
+    val cakes: LiveData<List<Cake>>
         get() = _cakes
 
     private val _failure: SingleLiveEvent<String> = SingleLiveEvent()
-    val failure : LiveData<String>
+    val failure: LiveData<String>
         get() = _failure // MAX ONE OBSERVER AT ONCE DUE TO [SingleLiveEvent] LIMITATION
 
     /**
@@ -43,12 +43,7 @@ class MainViewModel constructor(
                 .subscribe(
                     { repoCakes -> _cakes.postValue(repoCakes) },
                     {
-                        @Suppress("WhenWithOnlyElse")
-                        when(it) { // todo special handling for the type of error we get
-                            //is RuntimeException -> do sth
-                            else -> _failure.postValue(appContext.getString(R.string.failed_fetch_dialog_body_no_internet))
-                        }
-
+                        _failure.postValue(appContext.getString(R.string.failed_fetch_dialog_body_no_internet))
                     })
         }
     }

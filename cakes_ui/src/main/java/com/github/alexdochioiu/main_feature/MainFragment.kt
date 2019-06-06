@@ -1,22 +1,33 @@
 package com.github.alexdochioiu.main_feature
 
+import android.content.Context
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.alexdochioiu.core.coreComponent
 import com.github.alexdochioiu.core.ui.CustomDividerItemDecoration
 import com.github.alexdochioiu.main_feature.adapter.CakesAdapter
+import com.github.alexdochioiu.main_feature.di.DaggerFeatureComponent
+import com.github.alexdochioiu.main_feature.di.FeatureComponent
 import com.github.alexdochioiu.main_feature.vm.MainViewModel
 import com.github.alexdochioiu.main_feature.vm.MainViewModelFactory
 import com.github.alexdochioiu.main_feature_common_objects.Cake
+import com.github.alexdochioiu.main_feature_repository.di.CakesRepositoryComponent
+import com.github.alexdochioiu.main_feature_repository.di.DaggerCakesRepositoryComponent
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), CakesAdapter.CakesListener {
+/**
+ * Created by Alex Dochioiu on 2019-06-06
+ */
+class MainFragment : Fragment(), CakesAdapter.CakesListener {
     @Inject
     lateinit var mainViewModelFactory: MainViewModelFactory
 
@@ -25,21 +36,28 @@ class MainActivity : AppCompatActivity(), CakesAdapter.CakesListener {
 
     private lateinit var mainViewModel: MainViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
 
-        //inject()
+        inject()
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.activity_main, container, false);
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         mainViewModel = ViewModelProviders.of(this, mainViewModelFactory).get(MainViewModel::class.java)
 
-        rvCakes.layoutManager = LinearLayoutManager(this)
+        rvCakes.layoutManager = LinearLayoutManager(context)
         rvCakes.adapter = cakesAdapter
 
         // Just added this because it is in the requirements. A custom decorator can be created if needed/desired
         rvCakes.addItemDecoration(
             CustomDividerItemDecoration(
-                this,
+                context!!,
                 LinearLayoutManager.VERTICAL
             )
         )
@@ -57,7 +75,7 @@ class MainActivity : AppCompatActivity(), CakesAdapter.CakesListener {
             swipeRefreshLayout.isRefreshing = false
             cakesAdapter.clearItemsAndNotify()
 
-            AlertDialog.Builder(this) // if we want something fancier, a Fragment extending DialogFragment can be made
+            AlertDialog.Builder(context!!) // if we want something fancier, a Fragment extending DialogFragment can be made
                 .setTitle(R.string.generic_error)
                 .setMessage(errorMessage)
                 .setPositiveButton(R.string.retry_button) { dialog, _ ->
@@ -75,7 +93,7 @@ class MainActivity : AppCompatActivity(), CakesAdapter.CakesListener {
         when (savedInstanceState) {
             null -> triggerCakesRefresh(false)
             else -> {
-                if (savedInstanceState.getBoolean(KEY_CHANGING_CONFIGURATION, false)) {
+                if (!savedInstanceState.getBoolean(KEY_CHANGING_CONFIGURATION, false)) {
                     triggerCakesRefresh(false)
                 }
             }
@@ -86,49 +104,54 @@ class MainActivity : AppCompatActivity(), CakesAdapter.CakesListener {
         // todo ideally we don't want (view) actions triggered from any place other than the viewmodel.
         //          there are multiple solutions to do this (observable pattern, VM implements listener, etc)
 
-        AlertDialog.Builder(this) // if we want something fancier, a Fragment extending DialogFragment can be made
-            .setMessage(cake.description)
-            .setPositiveButton(R.string.ok_button) { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
+        context?.also { context ->
+            AlertDialog.Builder(context) // if we want something fancier, a Fragment extending DialogFragment can be made
+                .setMessage(cake.description)
+                .setPositiveButton(R.string.ok_button) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
+
     }
 
-    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
-        super.onSaveInstanceState(outState, outPersistentState)
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
 
-        outState!!.putBoolean(KEY_CHANGING_CONFIGURATION, true)
+        outState.putBoolean(KEY_CHANGING_CONFIGURATION, true)
     }
 
     private fun triggerCakesRefresh(showToast: Boolean = true) {
-        if (showToast) {
-            Toast.makeText(this, getString(R.string.refreshing_cakes_toast_message), Toast.LENGTH_SHORT).show()
+        context?.also { context ->
+            if (showToast) {
+                Toast.makeText(context, getString(R.string.refreshing_cakes_toast_message), Toast.LENGTH_SHORT).show()
+            }
         }
 
         swipeRefreshLayout.isRefreshing = true
         mainViewModel.updateCakes()
     }
 
-   /* private val featureComponent: FeatureComponent by lazy {
+    private val featureComponent: FeatureComponent by lazy {
         val repoComponent: CakesRepositoryComponent =
             DaggerCakesRepositoryComponent.builder()
-            .coreComponent(coreComponent())
-            .build()
+                .coreComponent(activity!!.coreComponent())
+                .build()
 
         return@lazy DaggerFeatureComponent
             .factory()
             .create(repoComponent, this)
-    }*/
+    }
 
     companion object {
         const val KEY_CHANGING_CONFIGURATION: String = "is.changing.config"
 
-       /* @JvmStatic
-        fun featureComponent(activity: MainActivity) =
-            activity.featureComponent
+        @JvmStatic
+        fun featureComponent(fragment: MainFragment) =
+            fragment.featureComponent
 
-        fun MainActivity.inject() {
+        fun MainFragment.inject() {
             featureComponent(this).inject(this)
-        }*/
+        }
     }
 }
