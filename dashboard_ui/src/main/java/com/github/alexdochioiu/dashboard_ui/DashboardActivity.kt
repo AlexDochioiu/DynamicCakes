@@ -6,7 +6,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class DashboardActivity : AppCompatActivity() {
 
@@ -14,19 +14,10 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
-        if (savedInstanceState == null) {
-            setupBottomNavigationBar()
-        }
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
-        super.onRestoreInstanceState(savedInstanceState)
-
         setupBottomNavigationBar()
     }
 
     private fun setupBottomNavigationBar() {
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
 
         // Passing each menu ID as a set of Ids because each
@@ -38,11 +29,6 @@ class DashboardActivity : AppCompatActivity() {
         )
 
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
-
-    }
-
-    companion object {
-        const val KEY_CHANGING_CONFIGURATION: String = "is.changing.config"
+        nav_view.setupWithNavController(navController)
     }
 }

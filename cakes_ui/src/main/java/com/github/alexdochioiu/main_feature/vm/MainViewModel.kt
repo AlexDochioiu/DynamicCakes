@@ -17,6 +17,7 @@ class MainViewModel constructor(
     private val appContext: Context // todo wrap this in some ResourceProvider class
 ) : ViewModel() {
 
+    private val lockObject = Object()
     private var cakesDisposable: Disposable? = null
 
     private val _cakes: MutableLiveData<List<Cake>> = MutableLiveData()
@@ -32,19 +33,20 @@ class MainViewModel constructor(
      * to [cakes] if successful. If the request fails, the error message should be intercepted using [failure]
      */
     fun updateCakes() {
-        val disposable = cakesDisposable
+        synchronized(lockObject) {
+            val disposable = cakesDisposable
 
-        // todo this is currently not thread-safe and it is technically possible to trick this check (it is an unlikely edge case though)
-        if (disposable == null || disposable.isDisposed) {
-            //do not restart the call unless the previous one finished
+            if (disposable == null || disposable.isDisposed) {
+                //do not restart the call unless the previous one finished
 
-            cakesDisposable = cakesRepository.getUniqueOrderedCakes()
-                .subscribeOn(schedulersProvider.getIoScheduler())
-                .subscribe(
-                    { repoCakes -> _cakes.postValue(repoCakes) },
-                    {
-                        _failure.postValue(appContext.getString(R.string.failed_fetch_dialog_body_no_internet))
-                    })
+                cakesDisposable = cakesRepository.getUniqueOrderedCakes()
+                    .subscribeOn(schedulersProvider.getIoScheduler())
+                    .subscribe(
+                        { repoCakes -> _cakes.postValue(repoCakes) },
+                        {
+                            _failure.postValue(appContext.getString(R.string.failed_fetch_dialog_body_no_internet))
+                        })
+            }
         }
     }
 
