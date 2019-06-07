@@ -25,8 +25,7 @@ android {
         }
     }
 
-
-    dynamicFeatures = [":cakes_ui", ":cakes_networking", ":cakes_repository"]
+    dynamicFeatures = [":cakes_ui", ":cakes_networking", ":cakes_repository", ":dashboard_ui", ":about_ui"]
 }
 
 dependencies {
@@ -38,4 +37,14 @@ dependencies {
     implementation networkingDependencies.retrofit2.moshi_converter_adapter
 
     implementation loggingDependency.okhttp3_interceptor
+
+
+    api core.navigation_ktx.fragment
+    api core.navigation_ktx.ui
+
+    api ui.ktx.fragment
+    api ui.ktx.lifecycle
+
+    api ui.lifecycle_extension
+    api ui.constraint_layout
 }

@@ -1,2 +1,2 @@
-include ':core', ':cakes_ui', ':cakes_networking', ':cakes_repository', ':cakes_common_objects'
+include ':core', ':cakes_ui', ':cakes_networking', ':cakes_repository', ':cakes_common_objects', ':dashboard_ui', ':about_ui'
 rootProject.name='dynamic'

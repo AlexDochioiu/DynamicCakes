@@ -7,6 +7,7 @@ import com.github.alexdochioiu.core.di.CoreScope
 import com.jakewharton.picasso.OkHttp3Downloader
 import dagger.Module
 import dagger.Provides
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import java.io.File
@@ -23,9 +24,9 @@ internal class NetworkModule {
         HttpLoggingInterceptor { message -> Log.v("okhttp3", message) }
             .apply { level = HttpLoggingInterceptor.Level.BASIC }
 
-    /*@Provides todo add it back if you want to cache the network response. I turned it off to avoid retrieving a cached response when checking for the no internet connection error
+    @Provides
     @CoreScope
-    internal fun cache(cacheFile: File): Cache = Cache(cacheFile, 10 * 1000 * 1000) //10MB Cache*/
+    internal fun cache(cacheFile: File): Cache = Cache(cacheFile, 10 * 1000 * 1000) //10MB Cache
 
     @Provides
     @CoreScope
@@ -34,13 +35,13 @@ internal class NetworkModule {
     @Provides
     @CoreScope
     internal fun okHttpClient(
-        loggingInterceptor: HttpLoggingInterceptor
-        //cache: Cache
+        loggingInterceptor: HttpLoggingInterceptor,
+        cache: Cache
     ): OkHttpClient =
         OkHttpClient
             .Builder()
             .addInterceptor(loggingInterceptor)
-            //.cache(cache)
+            .cache(cache)
             .build()
 
     @Provides

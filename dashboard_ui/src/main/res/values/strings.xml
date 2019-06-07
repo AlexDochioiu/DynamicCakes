@@ -1,0 +1,5 @@
+<resources>
+    <string name="title_home">Cakes</string>
+    <string name="title_about">About</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+</resources>

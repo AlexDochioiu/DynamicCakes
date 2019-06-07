@@ -7,6 +7,10 @@ object Features {
     object Main : DynamicFeature() {
         override val entryActivityName: String = "$PACKAGE_BASE.main_feature.MainActivity"
     }
+
+    object Dashboard : DynamicFeature() {
+        override val entryActivityName: String = "$PACKAGE_BASE.dashboard_ui.DashboardActivity"
+    }
 }
 
 abstract class DynamicFeature internal constructor(){

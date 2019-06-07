@@ -8,7 +8,4 @@ dependencies {
     //api core.rxjava2.rxandroid
 
     api loggingDependency.timber
-
-    implementation core.navigation_ktx.fragment
-    implementation core.navigation_ktx.ui
 }

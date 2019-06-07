@@ -2,7 +2,7 @@ package com.github.alexdochioiu.main_feature.vm
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.github.alexdochioiu.core.mvvm.SingleLiveEvent
 import com.github.alexdochioiu.core.rxjava.SchedulersProvider
@@ -17,14 +17,15 @@ class MainViewModel constructor(
     private val appContext: Context // todo wrap this in some ResourceProvider class
 ) : ViewModel() {
 
+    private val lockObject = Object()
     private var cakesDisposable: Disposable? = null
 
-    private val _cakes: MediatorLiveData<List<Cake>> = MediatorLiveData()
-    val cakes : LiveData<List<Cake>>
+    private val _cakes: MutableLiveData<List<Cake>> = MutableLiveData()
+    val cakes: LiveData<List<Cake>>
         get() = _cakes
 
     private val _failure: SingleLiveEvent<String> = SingleLiveEvent()
-    val failure : LiveData<String>
+    val failure: LiveData<String>
         get() = _failure // MAX ONE OBSERVER AT ONCE DUE TO [SingleLiveEvent] LIMITATION
 
     /**
@@ -32,24 +33,20 @@ class MainViewModel constructor(
      * to [cakes] if successful. If the request fails, the error message should be intercepted using [failure]
      */
     fun updateCakes() {
-        val disposable = cakesDisposable
+        synchronized(lockObject) {
+            val disposable = cakesDisposable
 
-        // todo this is currently not thread-safe and it is technically possible to trick this check (it is an unlikely edge case though)
-        if (disposable == null || disposable.isDisposed) {
-            //do not restart the call unless the previous one finished
+            if (disposable == null || disposable.isDisposed) {
+                //do not restart the call unless the previous one finished
 
-            cakesDisposable = cakesRepository.getUniqueOrderedCakes()
-                .subscribeOn(schedulersProvider.getIoScheduler())
-                .subscribe(
-                    { repoCakes -> _cakes.postValue(repoCakes) },
-                    {
-                        @Suppress("WhenWithOnlyElse")
-                        when(it) { // todo special handling for the type of error we get
-                            //is RuntimeException -> do sth
-                            else -> _failure.postValue(appContext.getString(R.string.failed_fetch_dialog_body_no_internet))
-                        }
-
-                    })
+                cakesDisposable = cakesRepository.getUniqueOrderedCakes()
+                    .subscribeOn(schedulersProvider.getIoScheduler())
+                    .subscribe(
+                        { repoCakes -> _cakes.postValue(repoCakes) },
+                        {
+                            _failure.postValue(appContext.getString(R.string.failed_fetch_dialog_body_no_internet))
+                        })
+            }
         }
     }
 
