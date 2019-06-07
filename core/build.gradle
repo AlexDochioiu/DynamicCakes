@@ -25,7 +25,7 @@ android {
         }
     }
 
-    dynamicFeatures = [":cakes_ui", ":cakes_networking", ":cakes_repository", ":dashboard_ui"]
+    dynamicFeatures = [":cakes_ui", ":cakes_networking", ":cakes_repository", ":dashboard_ui", ":about_ui"]
 }
 
 dependencies {

@@ -1,13 +1,13 @@
-package com.github.alexdochioiu.dashboard_ui.ui.notifications
+package com.github.alexdochioiu.about_ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class NotificationsViewModel : ViewModel() {
+class AboutViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+        value = "By Alex Dochioiu"
     }
     val text: LiveData<String> = _text
 }

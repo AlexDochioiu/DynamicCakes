@@ -12,6 +12,6 @@
 
     <fragment
             android:id="@+id/navigation_about"
-            android:name="com.github.alexdochioiu.dashboard_ui.ui.notifications.NotificationsFragment"
+            android:name="com.github.alexdochioiu.about_ui.AboutFragment"
             android:label="@string/title_about"/>
 </navigation>

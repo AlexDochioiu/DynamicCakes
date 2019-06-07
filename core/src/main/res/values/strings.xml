@@ -4,4 +4,5 @@
     <string name="title_main_feature_networking">Cakes Networking</string>
     <string name="title_main_feature_repository">Cakes Repo</string>
     <string name="title_dashboard_ui">Dashboard</string>
+    <string name="title_about_ui">About</string>
 </resources>
