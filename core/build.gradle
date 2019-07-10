@@ -1,11 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 apply from: '../compile_options.gradle'
-apply from: '../dagger.gradle'
-apply from: '../dependencies_core.gradle'
-apply from: '../dependencies_ui.gradle'
+apply from: '../dagger_kapt.gradle'
 apply from: '../dependencies_unit_tests.gradle'
 
 android {
@@ -31,20 +30,38 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    api networkingDependencies.okhttp3.picasso_downloader
     implementation networkingDependencies.okhttp3.okhttp
     implementation networkingDependencies.retrofit2.retrofit
     implementation networkingDependencies.retrofit2.moshi_converter_adapter
 
     implementation loggingDependency.okhttp3_interceptor
 
+    // README
+    //  Any dependency needed by more than one dynamic feature modules should be added here. Adding
+    //  the same dependency with 'implementation' to multiple dynamic feature modules will cause
+    //  gradle to fail building the project. (It will complain that the same library will be packaged
+    //  more than once)
+    api loggingDependency.timber
+
+    api networkingDependencies.picasso
+    api networkingDependencies.okhttp3.picasso_downloader
+
+    api core.support.appcompat
+    api core.kotlin.jdk
+    api core.kotlin.ktx
+
+    api core.rxjava2.rxjava
+    api core.rxjava2.rxkotlin
+    //api core.rxjava2.rxandroid
 
     api core.navigation_ktx.fragment
     api core.navigation_ktx.ui
 
     api ui.ktx.fragment
     api ui.ktx.lifecycle
-
     api ui.lifecycle_extension
+    api ui.material
     api ui.constraint_layout
+
+    api di.dagger.annotations
 }

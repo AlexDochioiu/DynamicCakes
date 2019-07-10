@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 apply from: '../compile_options.gradle'
-apply from: '../dagger.gradle'
+apply from: '../dagger_kapt.gradle'
 apply from: '../dependencies_unit_tests.gradle'
 
 android {
@@ -28,8 +28,7 @@ dependencies {
     //    The reason for it is so I don't have to change this to 'api'
     implementation project(':cakes_networking')
 
-    //This should not be added here since it is present in the networking layer. However, it fails to build unless
-    // I have it here too. I think this is a bug in the gradle build
+    // Keep on cascading the common objects
     api project (':cakes_common_objects')
 
     // todo Create a persistence module as well if needed and add it here; If persistence is not needed,
