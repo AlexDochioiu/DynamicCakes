@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 apply from: '../compile_options.gradle'
-apply from: '../dagger.gradle'
+apply from: '../dagger_kapt.gradle'
 apply from: '../dependencies_unit_tests.gradle'
 
 android {
@@ -22,6 +22,4 @@ dependencies {
 
     implementation project(':core')
     implementation project(':cakes_repository')
-
-    implementation networkingDependencies.picasso
 }

@@ -1,9 +1,9 @@
 apply plugin: 'com.android.dynamic-feature'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 apply from: '../compile_options.gradle'
-apply from: '../dependencies_ui.gradle'
 
 android {
     compileSdkVersion 28

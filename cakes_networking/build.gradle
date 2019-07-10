@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 apply from: '../compile_options.gradle'
-apply from: '../dagger.gradle'
+apply from: '../dagger_kapt.gradle'
 
 android {
     compileSdkVersion 28
