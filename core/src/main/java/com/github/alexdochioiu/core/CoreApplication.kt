@@ -4,11 +4,15 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import androidx.fragment.app.FragmentActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader
+import com.bumptech.glide.load.model.GlideUrl
 import com.github.alexdochioiu.core.di.CoreComponent
 import com.github.alexdochioiu.core.di.DaggerCoreComponent
 import com.github.alexdochioiu.core.navigation.DynamicFeature
 import com.github.alexdochioiu.core.navigation.DynamicNavigationManager
 import timber.log.Timber
+import java.io.InputStream
 import javax.inject.Inject
 
 /**
@@ -19,10 +23,17 @@ class CoreApplication : Application() {
     @Inject
     internal lateinit var dynamicNavigationManager: DynamicNavigationManager
 
+    @Inject
+    internal lateinit var glideDownloader: OkHttpUrlLoader.Factory
+
     override fun onCreate() {
         super.onCreate()
 
         appComponent.inject(this)
+
+        Glide.get(this).apply {
+            registry.replace(GlideUrl::class.java, InputStream::class.java, glideDownloader)
+        }
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())

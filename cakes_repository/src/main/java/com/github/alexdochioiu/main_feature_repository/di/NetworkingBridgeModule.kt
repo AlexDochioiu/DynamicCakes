@@ -18,9 +18,7 @@ internal class NetworkingBridgeModule {
     @Feature_RepositoryScope
     @Provides
     fun networkingComponent(coreComponent: CoreComponent): CakesNetworkComponent =
-        DaggerCakesNetworkComponent.builder()
-            .coreComponent(coreComponent)
-            .build()
+        CakesNetworkComponent.create(coreComponent.retrofitFactory(), coreComponent.converterFactory())
 
     @Feature_RepositoryScope
     @Provides

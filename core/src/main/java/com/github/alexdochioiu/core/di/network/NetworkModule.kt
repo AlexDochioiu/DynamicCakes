@@ -2,9 +2,9 @@ package com.github.alexdochioiu.core.di.network
 
 import android.content.Context
 import android.util.Log
+import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader
 import com.github.alexdochioiu.core.di.AppContext
 import com.github.alexdochioiu.core.di.CoreScope
-import com.jakewharton.picasso.OkHttp3Downloader
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
@@ -46,8 +46,8 @@ internal class NetworkModule {
 
     @Provides
     @CoreScope
-    internal fun picassoDownloader(
+    internal fun glideDownloader(
         okHttpClient: OkHttpClient
-    ): OkHttp3Downloader = OkHttp3Downloader(okHttpClient)
+    ): OkHttpUrlLoader.Factory = OkHttpUrlLoader.Factory(okHttpClient)
 
 }

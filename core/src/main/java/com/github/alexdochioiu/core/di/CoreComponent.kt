@@ -2,12 +2,12 @@ package com.github.alexdochioiu.core.di
 
 import android.app.Application
 import android.content.Context
+import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader
 import com.github.alexdochioiu.core.CoreApplication
 import com.github.alexdochioiu.core.di.network.ConvertorsModule
 import com.github.alexdochioiu.core.di.network.NetworkModule
 import com.github.alexdochioiu.core.network.RetrofitFactory
 import com.github.alexdochioiu.core.rxjava.SchedulersProvider
-import com.jakewharton.picasso.OkHttp3Downloader
 import com.squareup.moshi.Moshi
 import dagger.BindsInstance
 import dagger.Component
@@ -42,8 +42,6 @@ interface CoreComponent : InjectableComponent<CoreApplication> {
 
     //region Network
     fun retrofitFactory(): RetrofitFactory
-
-    fun picassoDownloader(): OkHttp3Downloader
     //endregion
 
     //region Converters

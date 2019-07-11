@@ -4,15 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.github.alexdochioiu.core.di.Feature_UiScope
 import com.github.alexdochioiu.main_feature.R
 import com.github.alexdochioiu.main_feature_common_objects.Cake
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_cake.view.*
 import javax.inject.Inject
 
 @Feature_UiScope
-class CakesAdapter @Inject internal constructor(private val picasso: Picasso, private val listener: CakesListener)
+class CakesAdapter @Inject internal constructor(private val listener: CakesListener)
     : RecyclerView.Adapter<CakesAdapter.CakesHolder>() {
 
     private var cakes: List<Cake> = emptyList()
@@ -46,9 +46,8 @@ class CakesAdapter @Inject internal constructor(private val picasso: Picasso, pr
 
             view.item_cake_tvTitle.text = cake.title
 
-            // todo without the okhttp network cache (currently off), this will end up re-fetching the
-            //  images when the orientation changes.
-            picasso.load(cake.imageUrl).fit().centerCrop().into(view.item_cake_ivCake)
+            Glide.with(view).load(cake.imageUrl).into(view.item_cake_ivCake)
+            //picasso.load(cake.imageUrl).fit().centerCrop().into(view.item_cake_ivCake)
         }
 
         override fun onClick(v: View?) {
