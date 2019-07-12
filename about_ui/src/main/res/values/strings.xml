@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="please_star">If you liked this project, please <a href="https://github.com/AlexDochioiu/DynamicCakes">star it on Github</a></string>
 </resources>
