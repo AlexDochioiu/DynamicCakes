@@ -8,9 +8,8 @@ ext {
 
             retrofit = '2.5.0',
 
-            picasso = '2.71828',
+            glide = '4.9.0',
 
-            picasso_okhttp3_downloader = '1.1.0',
             okhttp = '3.14.2',
             moshi = '1.8.0',
             dagger = '2.22.1',
@@ -46,10 +45,9 @@ ext {
 
     // dependencies
     networkingDependencies = [
-            picasso     : "com.squareup.picasso:picasso:$picasso",
             okhttp3     : [
-                    okhttp            : "com.squareup.okhttp3:okhttp:$okhttp",
-                    picasso_downloader: "com.jakewharton.picasso:picasso2-okhttp3-downloader:$picasso_okhttp3_downloader"
+                    okhttp          : "com.squareup.okhttp3:okhttp:$okhttp",
+                    glide_downloader: "com.github.bumptech.glide:okhttp3-integration:$glide"
             ],
             retrofit2   : [
                     retrofit               : "com.squareup.retrofit2:retrofit:$retrofit",
@@ -68,8 +66,8 @@ ext {
 
     di = [
             dagger: [
-                    annotations : "com.google.dagger:dagger:${dagger}",
-                    processor   : "com.google.dagger:dagger-compiler:${dagger}"
+                    annotations: "com.google.dagger:dagger:${dagger}",
+                    processor  : "com.google.dagger:dagger-compiler:${dagger}"
             ]
     ]
 
@@ -103,6 +101,8 @@ ext {
             recyclerview       : "androidx.recyclerview:recyclerview:$recyclerview",
             cardview           : "androidx.cardview:cardview:$cardview",
             lifecycle_extension: "androidx.lifecycle:lifecycle-extensions:$lifecycle_extension",
+            glide       : "com.github.bumptech.glide:glide:$glide",
+            glide_kapt  : "com.github.bumptech.glide:compiler:$glide"
     ]
 
     testing = [

@@ -43,8 +43,8 @@ dependencies {
     //  more than once)
     api loggingDependency.timber
 
-    api networkingDependencies.picasso
-    api networkingDependencies.okhttp3.picasso_downloader
+    implementation networkingDependencies.okhttp3.glide_downloader
+    api networkingDependencies.retrofit2.rxjava2_call_adapter
 
     api core.support.appcompat
     api core.kotlin.jdk
@@ -62,6 +62,8 @@ dependencies {
     api ui.lifecycle_extension
     api ui.material
     api ui.constraint_layout
+
+    api ui.glide
 
     api di.dagger.annotations
 }

@@ -1,18 +1,35 @@
+/*
+ * Copyright 2019 Alexandru Iustin Dochioiu
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.github.alexdochioiu.main_feature.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.bumptech.glide.Glide
 import com.github.alexdochioiu.core.di.Feature_UiScope
 import com.github.alexdochioiu.main_feature.R
 import com.github.alexdochioiu.main_feature_common_objects.Cake
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_cake.view.*
 import javax.inject.Inject
 
 @Feature_UiScope
-class CakesAdapter @Inject internal constructor(private val picasso: Picasso, private val listener: CakesListener)
+class CakesAdapter @Inject internal constructor(private val listener: CakesListener)
     : RecyclerView.Adapter<CakesAdapter.CakesHolder>() {
 
     private var cakes: List<Cake> = emptyList()
@@ -46,9 +63,10 @@ class CakesAdapter @Inject internal constructor(private val picasso: Picasso, pr
 
             view.item_cake_tvTitle.text = cake.title
 
-            // todo without the okhttp network cache (currently off), this will end up re-fetching the
-            //  images when the orientation changes.
-            picasso.load(cake.imageUrl).fit().centerCrop().into(view.item_cake_ivCake)
+            Glide.with(view).load(cake.imageUrl)
+                .centerCrop()
+                .placeholder(CircularProgressDrawable(view.context))
+                .into(view.item_cake_ivCake)
         }
 
         override fun onClick(v: View?) {
