@@ -12,4 +12,4 @@
 * Clean the dependencies
 * Migrate to MVI
 
-#### **Note: The project requires Android Studio 3.5-Beta5 (or newer) to build**
+#### **Note: The project requires Android Studio 3.5-RC03 (or newer) to build**
