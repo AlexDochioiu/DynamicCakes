@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Those navigation ids are defined here because they must be the same for mobile_navigation.xml
+            and for bottom_nav_menu.xml (inconsistency leads to a runtime crash when using the new
+            androidx navigation ui + androidx navigation fragment libraries released by google ) -->
+    <item name="navigation_home" type="id"/>
+    <item name="navigation_about" type="id"/>
+</resources>

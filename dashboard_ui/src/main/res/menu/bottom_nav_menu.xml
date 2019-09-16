@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Those ids are coming from ids.xml (notice it is "@id" instead of "@+id") to keep consistency
+            with the mobile_navigation.xml file (inconsistency will lead to a runtime crash) -->
     <item
-            android:id="@+id/navigation_home"
+            android:id="@id/navigation_home"
             android:icon="@drawable/ic_home_black_24dp"
             android:title="@string/title_home"/>
 
     <item
-            android:id="@+id/navigation_about"
+            android:id="@id/navigation_about"
             android:icon="@drawable/ic_info_black_24dp"
             android:title="@string/title_about"/>
 
