@@ -3,15 +3,17 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/mobile_navigation"
-            app:startDestination="@+id/navigation_home">
+            app:startDestination="@id/navigation_home">
 
+    <!-- Those ids are coming from ids.xml (notice it is "@id" instead of "@+id") to keep consistency
+            with the bottom_nav_menu.xml file (inconsistency will lead to a runtime crash) -->
     <fragment
-            android:id="@+id/navigation_home"
+            android:id="@id/navigation_home"
             android:name="com.github.alexdochioiu.main_feature.MainFragment"
             android:label="@string/title_home"/>
 
     <fragment
-            android:id="@+id/navigation_about"
+            android:id="@id/navigation_about"
             android:name="com.github.alexdochioiu.about_ui.AboutFragment"
             android:label="@string/title_about"/>
 </navigation>
