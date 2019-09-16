@@ -37,7 +37,11 @@ internal class NetworkModule {
     @Provides
     @CoreScope
     internal fun loggingInterceptor(): HttpLoggingInterceptor =
-        HttpLoggingInterceptor { message -> Log.v("okhttp3", message) }
+        HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
+            override fun log(message: String) {
+                Log.v("okhttp3", message)
+            }
+        })
             .apply { level = HttpLoggingInterceptor.Level.BASIC }
 
     @Provides

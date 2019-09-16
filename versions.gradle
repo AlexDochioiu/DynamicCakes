@@ -1,8 +1,8 @@
 ext {
     versions = [
-            gradle_version = '3.5.0-rc03',
-            kotlin_version = '1.3.41',
-            navigation_version = '2.1.0-alpha03', //gradle plugin
+            gradle_version = '3.5.0',
+            kotlin_version = '1.3.50',
+            navigation_version = '2.2.0-alpha02', //gradle plugin -> use same as navigation_ktx
 
             constraint_layout = '1.1.3',
 
@@ -10,31 +10,32 @@ ext {
 
             glide = '4.9.0',
 
-            okhttp = '3.14.2',
+            okhttp = '4.2.0',
+            okhttp_logging_interceptor = '4.2.0',
+
             moshi = '1.8.0',
-            dagger = '2.22.1',
+            dagger = '2.24',
 
             timber = '4.3.1',
-            okhttp_logging_interceptor = '3.11.0',
 
-            material = '1.1.0-alpha06',
-            navigation = '2.1.0-alpha01',
-            recyclerview = '1.1.0-alpha03',
+            material = '1.1.0-alpha10',
+            recyclerview = '1.1.0-beta04',
             cardview = '1.0.0',
             circleimageview = '3.0.0',
+            swipe_refersh_layout = "1.1.0-alpha02",
 
-            appcompat = '1.1.0-alpha05',
-            lifecycle_extension = '2.1.0-alpha04',
+            appcompat = '1.1.0',
+            lifecycle_extension = '2.2.0-alpha04',
 
             rxjava2 = '2.2.0',
             rxkotlin = '2.3.0',
             rxandroid = '2.1.1',
 
             //ktx
-            core_ktx = '1.2.0-alpha01',
-            fragment_ktx = '1.1.0-alpha05',
-            lifecycle_ktx = '2.2.0-alpha01',
-            navigation_ktx = '2.1.0-alpha03',
+            core_ktx = '1.2.0-alpha04',
+            fragment_ktx = '1.2.0-alpha03',
+            lifecycle_viewmodel_ktx = '2.2.0-alpha04',
+            navigation_ktx = '2.2.0-alpha02',
 
             //test
             junit = '4.12',
@@ -92,17 +93,18 @@ ext {
     ]
 
     ui = [
-            ktx                : [
+            ktx                 : [
                     fragment : "androidx.fragment:fragment-ktx:$fragment_ktx",
-                    lifecycle: "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_ktx",
+                    lifecycle: "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_viewmodel_ktx",
             ],
-            constraint_layout  : "androidx.constraintlayout:constraintlayout:$constraint_layout",
-            material           : "com.google.android.material:material:$material",
-            recyclerview       : "androidx.recyclerview:recyclerview:$recyclerview",
-            cardview           : "androidx.cardview:cardview:$cardview",
-            lifecycle_extension: "androidx.lifecycle:lifecycle-extensions:$lifecycle_extension",
-            glide       : "com.github.bumptech.glide:glide:$glide",
-            glide_kapt  : "com.github.bumptech.glide:compiler:$glide"
+            constraint_layout   : "androidx.constraintlayout:constraintlayout:$constraint_layout",
+            material            : "com.google.android.material:material:$material",
+            recyclerview        : "androidx.recyclerview:recyclerview:$recyclerview",
+            cardview            : "androidx.cardview:cardview:$cardview",
+            swipe_refersh_layout: "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_refersh_layout",
+            lifecycle_extension : "androidx.lifecycle:lifecycle-extensions:$lifecycle_extension",
+            glide               : "com.github.bumptech.glide:glide:$glide",
+            glide_kapt          : "com.github.bumptech.glide:compiler:$glide"
     ]
 
     testing = [
