@@ -9,7 +9,6 @@
 
 ## Planned Future Work
 * Extend to more than one feature
-* Clean the dependencies
 * Migrate to MVI
 
-#### **Note: The project requires Android Studio 3.5-RC03 (or newer) to build**
+#### **Note: The project requires Android Studio 3.5 (or newer) to build**

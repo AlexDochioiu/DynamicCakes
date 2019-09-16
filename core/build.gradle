@@ -62,6 +62,7 @@ dependencies {
     api ui.lifecycle_extension
     api ui.material
     api ui.constraint_layout
+    api ui.swipe_refersh_layout
 
     api ui.glide
 
